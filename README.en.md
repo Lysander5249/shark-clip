@@ -18,7 +18,7 @@ index first, works out which byte ranges hold that window, fetches **only those*
 and stream-copies the video — so a typical request pulls tens of megabytes instead
 of tens of gigabytes, with zero quality loss.
 
-<!-- ![demo](docs/demo.gif) -->
+![demo](docs/demo.gif)
 
 ## Features
 
