@@ -49,8 +49,34 @@ jobs:
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
 
+      # TAP is pinned so the failing-test names can be parsed the same way on
+      # every Node version; the log stays on disk for the reporting step below.
       - name: Core regression
-        run: node --test --test-concurrency=1 test/*.test.mjs
+        shell: bash
+        run: node --test --test-reporter=tap --test-concurrency=1 test/*.test.mjs > core-regression.tap 2>&1
+
+      # Workflow annotations are readable without repository access, which is how
+      # an outside contributor can see what broke without downloading the logs.
+      - name: Report failing tests
+        if: failure()
+        shell: bash
+        run: |
+          if [ ! -f core-regression.tap ]; then exit 0; fi
+          grep -E '^not ok ' core-regression.tap | head -n 20 | while IFS= read -r line; do
+            name=$(printf '%s' "$line" | sed -E 's/^not ok [0-9]+ - //')
+            echo "::error title=Failing test::${name}"
+          done
+          grep -E '^# (tests|pass|fail)' core-regression.tap | while IFS= read -r line; do
+            echo "::notice title=Summary::${line}"
+          done
+
+      - name: Upload regression log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: core-regression-${{ matrix.os }}-node${{ matrix.node }}
+          path: core-regression.tap
+          retention-days: 7
 
       - name: Desktop regression
         run: npm run test:desktop
