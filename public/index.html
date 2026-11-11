@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>Shark · 片段取材</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/svg+xml" href="/shark-fin.svg">
+  <script src="/app.js" type="module"></script>
+</head>
+<body class="queue-layout">
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Shark 首页">
+        <img src="/shark-wordmark.svg" width="885" height="186" alt="">
+      </a>
+      <div class="header-meta"><a id="setup-guide-link" class="setup-guide-link" href="#setup-guide">帮助与环境</a><span id="app-version" class="version">0.3</span></div>
+    </header>
+    <main>
+      <section class="intro workbench-heading" aria-labelledby="page-title">
+        <h1 id="page-title">取材工作台</h1>
+        <nav class="workflow-nav" aria-label="取材步骤">
+          <a href="#source-title"><span class="workflow-number" aria-hidden="true">1</span>来源</a><span class="nav-line" aria-hidden="true"></span>
+          <a href="#extract-title"><span class="workflow-number" aria-hidden="true">2</span>片段</a><span class="nav-line" aria-hidden="true"></span>
+          <a href="#queue-status-title"><span class="workflow-number" aria-hidden="true">3</span>队列<span id="queue-nav-status" class="queue-nav-status" hidden></span></a>
+        </nav>
+        <div id="connection-notice" class="notice" role="status" hidden></div>
+        <div id="history-notice" class="notice" role="status" hidden></div>
+      </section>
+      <div class="workspace">
+        <div class="queue-columns">
+          <div class="queue-compose">
+            <section class="card source-card" aria-labelledby="source-title">
+              <div class="section-heading source-heading">
+                <h2 id="source-title" tabindex="-1">选择或更换影片来源</h2>
+                <p id="source-ready-summary" class="source-ready-summary" hidden><strong id="source-summary-name" class="source-summary-name"></strong><span id="source-summary-meta" class="source-summary-meta"></span></p>
+                <div id="sample-row" class="sample-row" hidden><button id="sample-button" type="button">使用示例视频 ↗</button></div>
+              </div>
+              <div id="source-controls" class="source-controls">
+              <div class="source-tabs" role="tablist" aria-label="素材来源类型">
+                <button type="button" id="tab-browser" role="tab" aria-selected="true" aria-controls="panel-browser" data-source-type="browser">浏览器抓链</button>
+                <button type="button" id="tab-dav" role="tab" aria-selected="false" aria-controls="panel-dav" data-source-type="dav" tabindex="-1">我的云盘</button>
+                <button type="button" id="tab-local" role="tab" aria-selected="false" aria-controls="panel-local" data-source-type="local" tabindex="-1">本地文件</button>
+                <button type="button" id="tab-http" role="tab" aria-selected="false" aria-controls="panel-http" data-source-type="http" tabindex="-1">原文件直链</button>
+              </div>
+              <div id="panel-browser" role="tabpanel" aria-labelledby="tab-browser">
+                <div class="bookmark-quick-actions">
+                  <a id="bookmark-capture-link" class="bookmark-capture-link" href="#" draggable="true" aria-disabled="true"><img class="bookmark-brand-icon" src="/shark-fin.svg" alt="" width="14" height="14" draggable="false">片段取材抓链</a>
+                  <span id="bookmark-step-install" class="field-hint">首次拖到 Chrome 或 Edge 书签栏。</span>
+                  <span id="edge-xunlei-entry" class="field-hint" hidden><a href="https://pan.xunlei.com/" target="_blank" rel="noopener noreferrer">打开迅雷云盘 ↗</a></span>
+                  <span id="edge-baidu-entry" class="field-hint" hidden><a href="https://pan.baidu.com/" target="_blank" rel="noopener noreferrer">打开百度网盘 ↗</a></span>
+                </div>
+                <p id="bookmark-step-trigger" class="field-hint">在迅雷或百度网盘点抓链书签，再播放或下载影片。</p>
+                <p id="browser-helper-state" class="field-hint" role="status" aria-live="polite">等待抓链</p>
+                <div id="browser-helper-error" class="inline-error" role="alert" hidden></div>
+                <div id="browser-candidates" class="browser-candidates" role="group" aria-label="浏览器收到的候选文件"></div>
+                <p id="browser-selected" class="visually-hidden" role="status" hidden></p>
+                <details class="connection-details bookmark-help">
+                  <summary>抓链帮助</summary>
+                  <div class="details-content">
+                    <p id="browser-provider-intro" class="field-hint">在 Chrome 或 Edge 登录自己的网盘。抓链时保持 Shark 运行。</p>
+                    <p id="bookmark-step-receive" class="field-hint">单个候选会自动检查。网盘浮层可点 × 关闭，下次仍可用原书签。</p>
+                    <p id="bookmark-install-hint" class="field-hint">按钮无法拖动时，可在浏览器中打开安装页。</p>
+                    <div class="action-row"><button id="bookmark-install-chrome" class="button secondary" type="button">在 Chrome 打开安装页</button><button id="bookmark-install-edge" class="button secondary" type="button">在 Edge 打开安装页</button></div>
+                    <p id="edge-bookmark-open-error" class="inline-error" role="alert" hidden></p><p id="edge-bookmark-manual" class="field-hint" hidden>也可以在 Edge 地址栏打开 <code id="edge-bookmark-address"></code>。</p>
+                    <p id="edge-download-hint" class="field-hint" hidden>电脑上没有 Edge 时，可先<a href="https://www.microsoft.com/zh-cn/edge/download" target="_blank" rel="noopener noreferrer">从微软官网下载 Microsoft Edge</a>。</p>
+                  </div>
+                </details>
+              </div>
+              <div id="panel-dav" role="tabpanel" aria-labelledby="tab-dav" hidden>
+                <div id="provider-options" class="provider-options" role="group" aria-label="选择云盘"></div>
+                <p id="provider-note" class="field-hint">正在读取云盘接入信息…</p>
+                <details class="magnet-panel">
+                  <summary>磁力链接 <span>可选</span></summary>
+                  <div class="details-content">
+                    <label for="magnet-input">磁力链接</label><textarea id="magnet-input" rows="2" placeholder="magnet:?xt=urn:btih:…" autocomplete="off" spellcheck="false"></textarea>
+                    <div class="action-row"><button id="prepare-magnet" class="button secondary strong" type="button">准备云端下载</button><span class="quiet-text">云端下载完成后，再在下方选择视频。</span></div>
+                    <div id="magnet-error" class="inline-error" role="alert" hidden></div>
+                    <div id="magnet-guide" class="magnet-guide" hidden><p id="magnet-name"></p><ol id="magnet-instructions"></ol><div class="action-row"><button id="copy-magnet" class="button secondary" type="button">复制磁力链接</button><a id="open-cloud" class="button secondary strong" target="_blank" rel="noopener noreferrer">打开官方网盘</a></div></div>
+                    <p class="field-hint">请在官方网盘提交磁力任务。</p>
+                  </div>
+                </details>
+                <details id="dav-connection-details" class="connection-details" open>
+                  <summary><span>连接本机 CloudDrive2</span><span id="connection-summary" class="quiet-text">首次使用需连接</span></summary>
+                  <div class="details-content">
+                    <p class="dav-intro">备用入口。<a href="https://www.clouddrive2.com/" target="_blank" rel="noopener noreferrer">安装 CloudDrive2</a> 后，添加<span id="dav-provider-scope">迅雷或百度网盘</span>并开启 WebDAV。这里使用 CloudDrive2 账号。</p>
+                    <form id="dav-connect-form" autocomplete="off" novalidate>
+                      <label for="dav-url">本机 WebDAV 地址</label><input id="dav-url" class="source-field dav-connection-field" type="url" value="http://127.0.0.1:29798/dav/" autocomplete="off" spellcheck="false" required>
+                      <div class="two-fields credentials-fields"><div><label for="dav-username">CloudDrive2 账号</label><input id="dav-username" class="source-field dav-connection-field" type="text" placeholder="CloudDrive2 登录邮箱" autocomplete="off" spellcheck="false" required></div><div><label for="dav-password">CloudDrive2 密码</label><input id="dav-password" class="source-field dav-connection-field" type="password" autocomplete="new-password" required></div></div>
+                      <p class="field-hint">密码仅留在本机内存。重启后需重新连接。</p>
+                      <div class="action-row"><button id="dav-connect-button" class="button secondary strong" type="submit">连接云盘</button><span id="dav-status" class="quiet-text" role="status" aria-live="polite">等待连接</span></div>
+                    </form>
+                  </div>
+                </details>
+                <div id="dav-error" class="inline-error" role="alert" hidden></div>
+                <div id="dav-browser" class="dav-browser" hidden>
+                  <div class="dav-toolbar"><button id="dav-up-button" class="button secondary" type="button">↑ 上一级</button><span id="dav-current-path" class="dav-current-path" title="当前目录">/</span><button id="dav-refresh-button" class="button secondary" type="button">刷新目录</button></div>
+                  <p id="dav-list-status" class="dav-list-status" role="status" aria-live="polite"></p>
+                  <p id="dav-empty-help" class="field-hint empty-help" hidden>先在 CloudDrive2 核对同一目录和授权账号，再点「刷新目录」。</p>
+                  <ul id="dav-entries" class="dav-entries" aria-label="当前目录文件"></ul>
+                  <div id="dav-selected" class="dav-selected" hidden><span class="check-icon" aria-hidden="true">✓</span><span id="dav-selected-name"></span></div>
+                </div>
+              </div>
+              <div id="panel-local" role="tabpanel" aria-labelledby="tab-local" hidden>
+                <label for="local-path">视频文件</label><div class="input-action"><input id="local-path" class="source-field" type="text" placeholder="选择本地视频或填入完整路径" autocomplete="off" spellcheck="false"><button id="pick-file" class="button secondary" type="button">选择文件</button></div><p id="file-picker-status" class="field-hint" role="status" aria-live="polite"></p>
+              </div>
+              <div id="panel-http" role="tabpanel" aria-labelledby="tab-http" hidden>
+                <label for="source-url">HTTP / WebDAV 原文件地址</label><input id="source-url" class="source-field" type="url" placeholder="http://127.0.0.1:29798/dav/电影.mkv" autocomplete="off" spellcheck="false"><p class="field-hint">请输入支持范围读取的原文件地址。</p>
+                <details class="credentials"><summary>访问认证 <span>可选</span></summary><div class="two-fields credentials-fields"><div><label for="source-username">用户名</label><input id="source-username" class="source-field" type="text" autocomplete="off" spellcheck="false"></div><div><label for="source-password">密码</label><input id="source-password" class="source-field" type="password" autocomplete="off"></div></div></details>
+              </div>
+              <div class="probe-row">
+                <button id="probe-button" class="button secondary strong" type="button" disabled hidden><span class="button-label">检查源文件</span></button><span id="probe-state" class="quiet-text" role="status" hidden></span>
+              </div>
+              <div id="probe-error" class="inline-error" role="alert" hidden></div>
+              <details id="probe-diagnostic" class="probe-diagnostic" hidden><summary>查看媒体读取诊断</summary><pre id="probe-diagnostic-text"></pre></details>
+              <details id="media-info" class="media-info connection-details" hidden><summary>影片信息</summary><div class="details-content"><div class="media-info-top"><span class="check-icon" aria-hidden="true">✓</span><span id="media-name">文件已就绪</span><span id="source-kind" class="tag"></span></div><dl class="media-grid"><div><dt>时长</dt><dd id="media-duration">—</dd></div><div><dt>视频编码</dt><dd id="media-codec">—</dd></div><div><dt>分辨率</dt><dd id="media-resolution">—</dd></div><div><dt>文件大小</dt><dd id="media-size">—</dd></div></dl><p id="media-extra" class="field-hint"></p></div></details>
+              <details id="transfer-check-panel" class="connection-details" hidden>
+                <summary>传输速度诊断 <span>下载偏慢时使用</span></summary>
+                <div class="details-content">
+                  <p class="field-hint">从文件约 10%、30%、60%、80% 的四个不同字节位置各读取 2 MiB，对比串行读取与两路并发请求。计划接收 8 MiB，另核对 16 KiB 文件头。最长 8 分钟，可随时停止。</p>
+                  <p class="field-hint">位置按字节计算，与电影时间无对应关系。每次诊断内不重复取样；再次开始会读取相同位置。CloudDrive2 既有缓存和额外预取量仍未知，结果只用于筛查，不保证实际取片提速。</p>
+                  <p class="field-hint">这项检查不生成视频，也不会更改下载策略。需要至少 32 MiB 且支持强版本核对的原文件。</p>
+                  <div class="action-row"><button id="transfer-check-start" class="button secondary" type="button" disabled>开始速度诊断</button><button id="transfer-check-cancel" class="button secondary" type="button" hidden>停止诊断</button><button id="transfer-check-retry" class="button secondary" type="button" hidden>重新读取状态</button></div>
+                  <p id="transfer-check-state" class="field-hint" role="status" aria-live="polite">先检查支持版本核对的云端原文件，再开始诊断。</p>
+                  <p id="transfer-check-live-waits" class="field-hint" hidden></p>
+                  <div id="transfer-check-error" class="inline-error" role="alert" hidden></div>
+                  <div id="transfer-check-results" class="transfer-check-results" hidden>
+                    <div class="transfer-check-table-wrap"><table class="transfer-check-table"><caption>本次不同位置读取对照 · 上游带宽未知</caption><thead><tr><th scope="col">轮次</th><th scope="col">文件位置</th><th scope="col">方式</th><th scope="col">用时</th><th scope="col">本工具接收速度</th><th scope="col">状态</th></tr></thead><tbody id="transfer-check-rounds"></tbody></table></div>
+                    <p id="transfer-check-conclusion" class="field-hint"></p>
+                    <details id="transfer-check-timing-details" class="task-diagnostic-report" open>
+                      <summary>逐次读取的等待与收取</summary>
+                      <p id="transfer-check-timing-state" class="field-hint"></p>
+                      <p id="transfer-check-timing-explanation" class="field-hint"></p>
+                      <div id="transfer-check-timing-table-wrap" class="transfer-check-table-wrap" hidden><table class="transfer-check-table transfer-check-timing-table"><caption>本工具观察的分段耗时 · 并发分项不可相加当总用时</caption><thead><tr><th scope="col">读取</th><th scope="col">结果</th><th scope="col">总用时</th><th scope="col">等响应头</th><th scope="col">等首段</th><th scope="col">正文阶段</th><th scope="col">实际接收</th><th scope="col">停止阶段</th></tr></thead><tbody id="transfer-check-timings"></tbody></table></div>
+                    </details>
+                    <details class="task-diagnostic-report"><summary>查看脱敏诊断记录</summary><p class="field-hint">只包含读取位置、耗时、字节数及校验摘要。关闭工具后释放；需要保留时可复制。</p><button id="transfer-check-copy" class="button secondary" type="button">复制诊断记录</button><pre id="transfer-check-json" tabindex="0"></pre></details>
+                  </div>
+                </div>
+              </details>
+              </div>
+            </section>
+            <section class="card queue-editor-card" aria-labelledby="extract-title">
+              <div class="section-heading"><h2 id="extract-title">片段清单</h2></div>
+              <form id="extract-form" novalidate>
+                <section id="legacy-range-options" class="card" aria-labelledby="legacy-extract-title">
+                  <div class="section-heading"><span class="step-number">02</span><div><h2 id="legacy-extract-title">输入取材时间</h2><p>不需要先在这里预览。记录过时间点，可以直接输入。</p></div></div>
+                  <div class="two-fields time-fields"><div><label for="start-time">开始时间</label><input id="start-time" type="text" value="00:00:00" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="time-hint"></div><div><label for="end-time">结束时间</label><input id="end-time" type="text" value="00:01:00" inputmode="decimal" autocomplete="off" spellcheck="false" aria-describedby="time-hint"></div></div>
+                  <p id="time-hint" class="field-hint">支持 时:分:秒、分:秒 或秒数。不同发行版本可能有时间差，请适当增加余量。</p>
+                  <div class="handles-row"><div><label for="handles">前后各多取</label><p class="field-hint">先取宽一点，再在剪辑软件中精剪。</p></div><div class="number-unit"><input id="handles" type="number" value="5" min="0" max="300" step="1"><span>秒</span></div></div>
+                  <div id="range-summary" class="range-summary"><span class="range-dot"></span><span>检查源文件后可确认提取范围。</span></div>
+                </section>
+                <div class="export-card" role="group" aria-labelledby="export-title">
+                  <h3 id="export-title" class="visually-hidden">保存位置与默认选项</h3>
+                  <div id="legacy-name-option" class="clip-name-option"><label for="clip-name">片段名称</label><input id="clip-name" type="text" maxlength="160" autocomplete="off" spellcheck="false" aria-describedby="clip-name-hint"><p id="clip-name-hint" class="field-hint">默认“电影名＋截取时段”，可在获取前修改；同时用于输出文件夹和视频名称。重名文件夹自动编号，扩展名由工具添加。</p></div>
+                  <div class="export-location"><label for="output-dir">保存到</label><div class="input-action"><input id="output-dir" type="text" placeholder="加载默认保存位置…" autocomplete="off" spellcheck="false" aria-describedby="output-dir-hint directory-picker-status"><button id="pick-directory" class="button secondary" type="button">选择文件夹</button></div></div>
+                  <p id="output-dir-hint" class="field-hint visually-hidden">可选择文件夹，也可直接填写完整的本机路径。</p><p id="directory-picker-status" class="field-hint" role="status" aria-live="polite"></p>
+                  <details id="queue-default-options" class="queue-default-options"><summary id="queue-default-summary">音轨与导出选项 · 默认音轨 · 仅原码文件</summary><div class="queue-default-content">
+                  <div id="audio-option" class="audio-option" hidden><label for="audio-stream">保留音轨</label><select id="audio-stream"><option value="">使用默认音轨</option></select><p class="field-hint">候选片段保留主视频和所选一条音轨。</p></div>
+                  <div id="subtitle-option" class="audio-option" hidden><label for="subtitle-stream">同时保存独立字幕</label><select id="subtitle-stream" aria-describedby="subtitle-hint"><option value="">不保存字幕文件</option></select><p id="subtitle-hint" class="field-hint">检查原文件后可选择已有字幕。字幕单独保存，不嵌入或烧录到视频。</p></div>
+                  <div id="browser-download-option" class="audio-option" hidden><label for="download-method">下载方式</label><select id="download-method"><option value="direct-stream">流式直连（新测试）</option><option value="indexed" selected>索引取片（原方式）</option></select><p id="download-method-hint" class="field-hint">检查源文件后确认可用方式。流式直连是否更快，需要真实取片对照。</p></div>
+                  <label class="checkbox-option" for="make-mp4"><input id="make-mp4" type="checkbox"><span><strong>同时生成 MP4 工作副本</strong><small>视频不转码，音频转为 AAC 双声道。也可以取材完成后再生成，无需重读云端。</small></span></label>
+                  <div id="budget-suggestion" class="budget-suggestion" role="status" aria-live="polite" hidden><p id="budget-estimate"></p><p id="budget-estimate-warning" class="budget-estimate-warning" hidden></p><p class="field-hint">估算不等于实际读取量；索引、关键帧及重试可能增加接收量，CloudDrive2 上游预取量另计。</p><button id="apply-budget" class="button secondary" type="button" hidden>采用建议上限</button></div>
+                  <details class="advanced-options"><summary>读取上限与导出说明</summary><div class="audio-option"><label for="read-mode">下载策略</label><select id="read-mode"><option value="standard" selected>稳健模式</option><option value="continuous">连续读取（实验）</option><option value="parallel">双路读取（实验）</option></select><p class="field-hint" id="read-mode-hint">双路读取可同时获取两个小数据块，仅用于支持文件版本核对的远程 MKV；实际速度需与稳健模式比较。连续读取使用较大数据块。两种实验策略都保留累计读取上限，可随时在新任务中改回稳健模式。</p></div><label class="checkbox-option" for="reuse-index"><input id="reuse-index" type="checkbox" checked><span><strong>复用已验证的影片索引</strong><small>同一影片再次取材时减少重复读取；每次核对文件版本，关闭工具后释放。仅适用于支持版本校验的远程 MKV。</small></span></label><div id="legacy-budget-option" class="budget-row"><label for="budget">本工具 HTTP 接收上限</label><div class="number-unit"><input id="budget" type="number" value="256" min="1" max="65536" step="1"><span>MiB</span></div></div><p class="field-hint">达到上限会停止任务。此数字仅统计本工具接收的数据；CloudDrive2 上游预取量未知，目录请求不计入。本地或挂载文件无法限制上游读取量。</p><p class="field-hint">远程 MKV 读取目标片段时，持续接收数据即可继续，不再限制总下载时长为 15 分钟；连续 2 分钟没有接收或写入新数据才会停止。临时超时或传输中断可自动续读当前数据块，最多重试 2 次，只读取缺失部分；读取上限和不可恢复的错误仍会停止任务。</p><p class="field-hint">视频按原编码复制，切点受关键帧影响。候选视频不包含字幕、附件和其他音轨；已选择的字幕另存为独立文件。HDR、杜比视界和编辑软件的兼容性需以导出文件实测为准。</p></details>
+                  </div></details>
+                  <div id="form-error" class="inline-error" role="alert" hidden></div>
+                  <div id="legacy-submit-options"><button id="start-button" class="button primary start-button" type="submit" disabled><span>获取原码片段</span><span aria-hidden="true">→</span></button><p class="submit-hint" id="submit-hint">先检查源文件，再开始获取。</p></div>
+                </div>
+              </form>
+              <div id="queue-editor"></div>
+            </section>
+          </div>
+          <aside class="card queue-status-card" aria-labelledby="queue-status-title"><div class="task-heading"><h2 id="queue-status-title">顺序队列与记录</h2></div><div id="queue-status"></div></aside>
+        </div>
+        <details id="task-details-shell" class="task-details-shell" hidden><summary>选中任务详情与诊断</summary>
+        <section id="task-panel" class="card task-card" aria-labelledby="task-title">
+          <div class="task-heading"><h2 id="task-title">选中任务详情</h2><span id="task-badge" class="tag">尚未开始</span></div>
+          <div id="task-empty" class="task-empty"><span class="empty-symbol" aria-hidden="true">▤</span><div><h3>下一段素材，从这里开始。</h3><p>任务进度和保存的文件会显示在这里。</p></div></div>
+          <div id="task-content" hidden>
+            <p id="task-selection" class="task-selection" hidden></p>
+            <div class="task-status-row"><h3 id="task-status-title" class="task-status-title">正在准备</h3><span id="task-elapsed" class="quiet-text">00:00</span></div><p id="task-stage" class="task-stage" role="status" aria-live="polite">连接源文件…</p>
+            <div id="progress-track" class="progress-track indeterminate" role="progressbar" aria-label="当前阶段进度" aria-valuemin="0" aria-valuemax="100"><div id="progress-fill" class="progress-fill"></div></div>
+            <div class="progress-meta"><span id="task-progress-text">准备中</span><span>本工具已接收 <strong id="task-bytes">—</strong><span id="task-upstream-note" class="upstream-metric" hidden>（CloudDrive2 预取量未计入）</span></span></div>
+            <p id="task-read-mode" class="field-hint" hidden></p><div id="task-diagnostics" class="task-diagnostics" hidden><p id="task-reading-state"></p><p id="task-network-timing" hidden></p><p id="task-stage-timing" hidden></p><p id="task-index-reuse" hidden></p></div>
+            <details id="task-diagnostic-report" class="task-diagnostic-report" hidden><summary>查看脱敏诊断报告</summary><p class="field-hint">速度仅指本工具近 5 秒接收量，不代表原片平均码率或 CloudDrive2 上游速度。请求耗时是累计值，并发请求可能重叠。</p><button id="copy-task-diagnostic" class="button secondary" type="button">复制诊断</button><pre id="task-diagnostic-json" tabindex="0" aria-label="脱敏任务诊断 JSON"></pre></details>
+            <div id="task-error" class="inline-error" role="alert" hidden></div><div id="task-warning" class="inline-warning" role="status" hidden></div>
+            <div id="task-resume" class="task-resume" hidden><h4 id="task-resume-title"></h4><p id="task-resume-summary"></p><p id="task-resume-range" class="field-hint" hidden></p><p id="task-resume-budget" class="field-hint" hidden></p><p id="task-resume-instructions" class="field-hint"></p><div class="action-row"><button id="resume-button" class="button secondary strong" type="button" hidden>继续下载</button><button id="discard-resume-button" class="button secondary" type="button" hidden>清除续传缓存</button></div><p id="task-resume-cache-note" class="field-hint resume-cache-note">续传缓存只保存在本机。清除后需重新获取；不会删除云盘文件或已导出的片段。</p></div>
+            <div class="action-row task-actions"><button id="cancel-button" class="button secondary" type="button">停止获取</button><button id="retry-poll-button" class="button secondary" type="button" hidden>重新连接任务</button></div>
+            <div id="task-results" class="task-results" hidden><div class="results-heading">已保存到本地</div><div id="result-files" class="result-files"></div><div class="action-row"><button id="reveal-button" class="button secondary strong" type="button">在文件管理器中显示</button><button id="compatible-button" class="button secondary" type="button" hidden>从本地片段生成 MP4</button></div><p class="field-hint">原码候选片段作为取材母版保留，精确镜头边界请在剪辑软件中确认。</p><div id="local-preview" class="local-preview" hidden><label for="preview-video">本地 MP4 预览</label><video id="preview-video" controls preload="metadata" playsinline></video><p class="field-hint">仅播放已保存的本地副本，不读取云端原片。</p></div></div>
+          </div>
+        </section>
+        </details>
+      </div>
+      <details id="setup-guide" class="setup-guide">
+        <summary><span>首次使用与环境检查</span><span id="setup-summary" class="quiet-text">M 系列 Mac / Windows x64</span></summary>
+        <div class="setup-content">
+          <p id="setup-intro" class="field-hint">工具自带视频处理组件。</p>
+          <ol class="setup-steps">
+            <li id="setup-step-one">在 Chrome 或 Edge 登录迅雷或百度网盘。</li>
+            <li id="setup-step-two">把抓链按钮拖到书签栏，之后在网盘点击书签使用。</li>
+            <li id="setup-step-three">抓链遇到问题时，可从「我的云盘」通过 CloudDrive2 取材。</li>
+          </ol>
+          <div class="action-row"><button id="setup-check" class="button secondary" type="button">检查本机环境</button><span class="field-hint">按填写的地址和保存位置检查。不会发送凭据或读取云盘文件。</span></div>
+          <p id="setup-check-state" class="setup-check-state" role="status" aria-live="polite">检查会在保存位置创建并清理一个空文件。</p>
+          <ul id="setup-check-results" class="setup-check-results" hidden></ul>
+        </div>
+      </details>
+    </main>
+    <footer><span id="dependency-state">正在连接本机服务</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

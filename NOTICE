@@ -1,0 +1,11 @@
+Shark Clip（片段取材）
+Copyright 2026 Shark Clip contributors
+
+本产品包含 FFmpeg（https://ffmpeg.org），按 LGPL-2.1-or-later 授权使用。
+FFmpeg 的许可证全文、对应源码、实际使用的 configure 参数与重建脚本，
+随分发包的 Licenses/ 目录一并提供。
+
+This product includes software developed by the FFmpeg project,
+licensed under the GNU Lesser General Public License v2.1 or later.
+The corresponding source code, build configuration and rebuild script
+are distributed with each release package under Licenses/.

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>片段取材 · 浏览器助手</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <header><p class="eyebrow">片段取材 · 浏览器助手</p><h1>把文件入口交给原工具</h1></header>
+  <p class="intro">使用 Chrome / Edge 已有的百度、迅雷登录状态。浏览器负责识别，片段取材负责下载。</p>
+  <details id="pair-section" open><summary>连接本机片段取材</summary>
+    <label for="pair-url">粘贴原工具生成的配对地址</label>
+    <input id="pair-url" type="password" autocomplete="off" spellcheck="false" placeholder="从“浏览器直连”中复制">
+    <div class="row"><button id="pair">连接</button><button id="reset" class="secondary">取消配对</button></div>
+    <p id="pair-state" class="muted">尚未连接</p>
+  </details>
+  <section><p id="page-state" class="page-state">正在读取当前网页…</p>
+    <button id="start" disabled>开始识别当前网页</button>
+    <button id="stop" class="secondary" disabled>停止识别</button>
+    <p id="status" role="status">请先完成配对。</p>
+  </section>
+  <section id="xunlei-section" hidden>
+    <p class="page-state">迅雷 · 读取影片入口</p>
+    <p class="muted">列表来自当前官方网页已加载的普通空间视频。无需播放影片。</p>
+    <label for="file">选择影片</label><select id="file"><option value="">请先开始识别并打开影片目录</option></select>
+    <button id="refresh-files" class="secondary">刷新影片列表</button>
+    <button id="read-file" disabled>读取所选文件入口</button>
+    <p id="detail-state" role="status" class="muted"></p>
+  </section>
+  <footer>开始后，在网盘网页进行正常文件操作。无需先播放影片。候选入口会送到原工具核验；识别到地址不代表已开始下载。</footer>
+  <script src="popup.js"></script>
+</body></html>

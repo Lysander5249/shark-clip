@@ -1,0 +1,89 @@
+name: 问题反馈
+description: 报告一个可复现的问题
+title: '[问题] '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请尽量把下面填完——信息越全，我越可能在一次回复里定位到原因。
+
+        如果是**安全问题**，请不要在这里提交，见
+        [SECURITY.md](https://github.com/Lysander5249/shark-clip/blob/main/SECURITY.md)。
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 面板左下角或文件名里的版本号
+      placeholder: 0.3.32-preview.1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 系统
+      options:
+        - macOS (Apple Silicon)
+        - Windows x64
+        - 从源码运行 (npm start)
+        - 其他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: 片源类型
+      options:
+        - 本地文件
+        - HTTP/HTTPS 直链
+        - WebDAV / CloudDrive2
+        - 迅雷云盘抓链
+        - 百度网盘抓链
+        - 不确定
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 具体到点了哪个按钮、填了什么时间范围
+      placeholder: |
+        1. 选择文件 xxx.mkv
+        2. 填入 01:12:30 - 01:12:45
+        3. 点击「开始取材」
+        4. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果 / 实际结果
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志或错误信息
+      description: 终端输出、面板上的报错文字，或任务记录里的诊断信息
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: media
+    attributes:
+      label: 片源信息（可选）
+      description: 容器格式、视频编码、分辨率、时长。**不要上传影片文件本身**，也不要贴带签名的下载直链。
+      placeholder: |
+        容器: MKV
+        视频: HEVC 3840x2160
+        音频: AAC 2ch
+        时长: 02:14:07
+    validations:
+      required: false

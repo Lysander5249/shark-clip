@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Shark · 接收候选</title>
+  <link rel="icon" type="image/svg+xml" href="/shark-fin.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/bookmark-receive.js"></script>
+</head>
+<body class="bookmark-receive-page">
+  <main class="card bookmark-receive-card">
+    <h1><img class="bookmark-brand-icon" src="/shark-fin.svg" alt="" width="17" height="17">Shark 抓链</h1>
+    <p id="bookmark-receive-state" role="status" aria-live="polite">正在打开本机收件窗口…</p>
+    <button id="bookmark-receive-close" class="button secondary" type="button">关闭窗口</button>
+    <p class="field-hint">候选送回 Shark 后，本窗会自动关闭。</p>
+    <p id="bookmark-receive-close-hint" class="field-hint" hidden>浏览器若未关闭此窗口，请手动关闭此标签页或窗口（Mac：⌘W；Windows：Ctrl+W）。</p>
+  </main>
+</body>
+</html>

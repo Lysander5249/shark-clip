@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>CFBundleIdentifier</key><string>io.clipfetcher.desktop.bookmark-preview</string>
+  <key>CFBundleName</key><string>Shark</string>
+  <key>CFBundleDisplayName</key><string>Shark</string>
+  <key>CFBundleIconFile</key><string>Shark.icns</string>
+  <key>CFBundleExecutable</key><string>ClipFetcher</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>__VERSION__</string>
+  <key>CFBundleVersion</key><string>__VERSION__</string>
+  <key>LSMinimumSystemVersion</key><string>13.5</string>
+  <key>NSHighResolutionCapable</key><true/>
+  <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
+  <key>NSHumanReadableCopyright</key><string>片段取材。第三方开源许可见 Resources/Licenses。</string>
+</dict></plist>

@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "片段取材 · 浏览器助手",
+  "version": "0.1.1",
+  "description": "将百度、迅雷网页中识别到的文件入口发送给本机片段取材。",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["http://127.0.0.1/*", "https://pan.xunlei.com/*", "https://pan.baidu.com/*"],
+  "background": { "service_worker": "background.mjs", "type": "module" },
+  "content_scripts": [{
+    "matches": ["http://127.0.0.1/browser-pair*"],
+    "js": ["capture-core.js", "pair-page.js"],
+    "all_frames": false,
+    "run_at": "document_idle"
+  }],
+  "action": { "default_title": "片段取材", "default_popup": "popup.html" },
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'" }
+}

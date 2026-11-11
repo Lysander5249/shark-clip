@@ -1,0 +1,37 @@
+{
+  "name": "clip-fetcher",
+  "version": "0.3.32-preview.1",
+  "description": "片段取材：在本机按时间范围提取视频片段，只读取需要的字节，视频不重新编码。",
+  "license": "Apache-2.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lysander5249/shark-clip.git"
+  },
+  "homepage": "https://github.com/Lysander5249/shark-clip#readme",
+  "bugs": {
+    "url": "https://github.com/Lysander5249/shark-clip/issues"
+  },
+  "keywords": [
+    "ffmpeg",
+    "video",
+    "clip",
+    "trim",
+    "matroska",
+    "mkv",
+    "http-range",
+    "video-editing",
+    "webdav",
+    "macos"
+  ],
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:desktop": "node --test scripts/*.test.mjs",
+    "build:mac": "node scripts/build-macos.mjs --arch arm64",
+    "build:windows": "node scripts/build-windows.mjs",
+    "build:ffmpeg:mac": "node scripts/build-ffmpeg-macos.mjs --arch arm64",
+    "smoke:package": "node scripts/smoke-package.mjs"
+  }
+}
