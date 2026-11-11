@@ -38,7 +38,7 @@ Grab the archive for your platform from [Releases](https://github.com/Lysander52
 | Platform | File |
 |---|---|
 | macOS (Apple Silicon) | `Shark-<version>-mac-arm64.zip` |
-| Windows x64 | `Shark-<version>-windows-x64-Edge-*.zip` |
+| Windows x64 | `Shark-<version>-windows-x64-Edge.zip` |
 
 Node.js, FFmpeg and ffprobe are bundled — nothing else to install.
 

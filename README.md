@@ -56,7 +56,7 @@
 | 平台                   | 文件                                  | 说明                                  |
 | -------------------- | ----------------------------------- | ----------------------------------- |
 | macOS（Apple Silicon） | `Shark-<版本>-mac-arm64.zip`          | 解压后拖动 `Shark-mac-arm64.app` 到「应用程序」 |
-| Windows x64          | `Shark-<版本>-windows-x64-Edge-*.zip` | 完整解压后运行 `Shark.exe` 或 `启动片段取材.cmd`  |
+| Windows x64          | `Shark-<版本>-windows-x64-Edge.zip` | 完整解压后运行 `Shark.exe` 或 `启动片段取材.cmd`  |
 
 安装包内已含 Node.js、FFmpeg 和 ffprobe，**不需要另外安装任何东西**。  
 每个 Release 都附带 `.sha256` 校验文件，下载后可自行核对。
