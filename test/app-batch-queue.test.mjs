@@ -76,7 +76,9 @@ test('prefilled batch stays strictly serial, can skip a queued item, and continu
   for(const job of results.slice(2)){assert.equal(job.status,'completed',JSON.stringify(job.error));assert(job.startedAt);assert(job.metrics.receivedBytes<=32*1024*1024);assert.deepEqual(job.requested,{start:job===results[2]?3:4,end:job===results[2]?6:7,handles:0});}
   assert(Date.parse(results[2].startedAt)>=Date.parse(results[0].finishedAt));assert(Date.parse(results[3].startedAt)>=Date.parse(results[2].finishedAt));
   assert.equal(new Set(results.slice(2).map(job=>path.dirname(job.result.candidatePath))).size,2);
-  assert.equal((await f.api('/api/jobs/queue')).activeJob,null);
+  // Settlement clears the active slot only after history is written, a beat after
+  // the job itself reports terminal. Wait for the documented idle state.
+  const idle=await until(()=>f.api('/api/jobs/queue'),s=>s.activeJob===null,'active job must clear once settlement finishes');assert.equal(idle.activeJob,null);
   const history=JSON.parse(await readFile(path.join(f.root,'state/tasks.json'),'utf8'));
   assert.equal(history.jobs.find(job=>job.id===results[0].id).batchId,created.batchId);
   assert.deepEqual(history.jobs.find(job=>job.id===results[0].id).requested,{start:1,end:4,handles:0});
