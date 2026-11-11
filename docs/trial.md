@@ -17,12 +17,12 @@ Shark Clip 处理的是**「一支片子里的一段」**：
 
 ### macOS（Apple Silicon）
 
-1. 从 [Releases](https://github.com/Lysander5249/shark-clip/releases) 下载 `Shark-<版本>-mac-arm64.zip`
-2. 解压，把 `Shark-mac-arm64.app` 拖到「应用程序」
+1. 从 [Releases](https://github.com/Lysander5249/shark-clip/releases) 下载 `Shark-Clip-<版本>-mac-arm64.zip`
+2. 解压，把 `Shark Clip.app` 拖到「应用程序」
 3. **首次打开被系统拦住是正常的**——安装包还没有 Apple 公证。三种解法任选：
    - 右键点 App → 「打开」→ 弹窗里再点「打开」
    - 「系统设置 → 隐私与安全性」→ 页面下方点「仍要打开」
-   - 命令行：`xattr -dr com.apple.quarantine /Applications/Shark.app`
+   - 命令行：`xattr -dr com.apple.quarantine "/Applications/Shark Clip.app"`
 
 > Intel Mac 和 macOS 13.5 以下没有测试，不保证可用。
 

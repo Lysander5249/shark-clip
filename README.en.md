@@ -37,14 +37,14 @@ Grab the archive for your platform from [Releases](https://github.com/Lysander52
 
 | Platform | File |
 |---|---|
-| macOS (Apple Silicon) | `Shark-<version>-mac-arm64.zip` |
+| macOS (Apple Silicon) | `Shark-Clip-<version>-mac-arm64.zip` |
 | Windows x64 | `Shark-<version>-windows-x64-Edge.zip` |
 
 Node.js, FFmpeg and ffprobe are bundled — nothing else to install.
 
 Releases are **not yet notarized / code-signed**, so the OS will warn on first launch:
 
-- **macOS**: right-click the app → **Open** → **Open** again. Or `xattr -dr com.apple.quarantine /Applications/Shark.app`
+- **macOS**: right-click the app → **Open** → **Open** again. Or `xattr -dr com.apple.quarantine "/Applications/Shark Clip.app"`
 - **Windows**: on the SmartScreen prompt, click **More info** → **Run anyway**
 
 ### From source

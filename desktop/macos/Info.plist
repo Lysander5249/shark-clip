@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
   <key>CFBundleIdentifier</key><string>io.clipfetcher.desktop.bookmark-preview</string>
-  <key>CFBundleName</key><string>Shark</string>
-  <key>CFBundleDisplayName</key><string>Shark</string>
+  <key>CFBundleName</key><string>Shark Clip</string>
+  <key>CFBundleDisplayName</key><string>Shark Clip</string>
   <key>CFBundleIconFile</key><string>Shark.icns</string>
   <key>CFBundleExecutable</key><string>ClipFetcher</string>
   <key>CFBundlePackageType</key><string>APPL</string>

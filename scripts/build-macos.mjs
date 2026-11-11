@@ -16,8 +16,8 @@ const node = await prepareNode('darwin', arch);
 const ffmpeg = await buildFfmpegMac({ arch });
 await mkdir(DIST, { recursive: true });
 const staging = await mkdtemp(path.join(DIST, '.shark-mac-'));
-const appName = 'Shark-mac-' + arch + '.app';
-const archiveName = 'Shark-' + pkg.version + '-mac-' + arch + '.zip';
+const appName = 'Shark Clip.app';
+const archiveName = 'Shark-Clip-' + pkg.version + '-mac-' + arch + '.zip';
 const dataProfile = 'ClipFetcher-BookmarkPreview';
 
 try {
@@ -62,7 +62,7 @@ try {
     mediaRuntimeHashes[name] = await hashFile(executable);
   }
   await writeManifest(resources, {
-    name: pkg.name, displayName: 'Shark', version: pkg.version, target: 'darwin-' + arch, dataProfile,
+    name: pkg.name, displayName: 'Shark Clip', version: pkg.version, target: 'darwin-' + arch, dataProfile,
     signing: 'ad-hoc-local-test-only', notarized: false, containsUserData: false, bookmarkConfigurationIncluded: false,
     nativeLauncherSourceSha256: await hashFile(launcherSource), iconSha256: await hashFile(iconPath), mediaRuntimeHashes,
   });

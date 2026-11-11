@@ -2,7 +2,7 @@ import AppKit
 import WebKit
 
 final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, WKNavigationDelegate, WKUIDelegate {
-    private let appName = "Shark"
+    private let appName = "Shark Clip"
     private var window: NSWindow!
     private var webView: WKWebView!
     private var process: Process?

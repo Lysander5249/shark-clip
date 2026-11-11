@@ -57,7 +57,7 @@
 
 | 平台                   | 文件                                  | 说明                                  |
 | -------------------- | ----------------------------------- | ----------------------------------- |
-| macOS（Apple Silicon） | `Shark-<版本>-mac-arm64.zip`          | 解压后拖动 `Shark-mac-arm64.app` 到「应用程序」 |
+| macOS（Apple Silicon） | `Shark-Clip-<版本>-mac-arm64.zip`          | 解压后拖动 `Shark Clip.app` 到「应用程序」 |
 | Windows x64          | `Shark-<版本>-windows-x64-Edge.zip` | 完整解压后运行 `Shark.exe` 或 `启动片段取材.cmd`  |
 
 安装包内已含 Node.js、FFmpeg 和 ffprobe，**不需要另外安装任何东西**。  
@@ -74,7 +74,7 @@
 3. 或命令行（把路径换成你的）：
 
 ```bash
-xattr -dr com.apple.quarantine /Applications/Shark.app
+xattr -dr com.apple.quarantine "/Applications/Shark Clip.app"
 ```
 
 ### Windows：SmartScreen 拦了怎么办
