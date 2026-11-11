@@ -91,7 +91,10 @@ test('concurrent or completed duplicate batch submissions return their original 
   const reordered={jobs:body.jobs.map(item=>Object.fromEntries(Object.entries(item).reverse())),clientBatchId:body.clientBatchId,sourceId:body.sourceId};assert.deepEqual((await f.api('/api/jobs/batch',reordered)).jobs.map(job=>job.id),attempts[0].jobs.map(job=>job.id));
   f.release();for(const job of attempts[0].jobs)assert.equal((await f.finish(job.id)).status,'completed');
   const again=await f.api('/api/jobs/batch',body);assert.deepEqual(again.jobs.map(job=>job.id),attempts[0].jobs.map(job=>job.id));assert(again.jobs.every(job=>job.status==='completed'));
-  const snapshot=await f.api('/api/jobs/queue');assert.equal(snapshot.batches.length,1);assert.equal(snapshot.batches[0].batchId,body.clientBatchId);assert.equal(snapshot.recentJobs.length,2);
+  // The job endpoint reports a job finished a beat before the queue snapshot does:
+  // settlement still has to write history and release the active slot. Poll for the
+  // documented state instead of asserting on the exact tick the transfer ended.
+  const snapshot=await until(()=>f.api('/api/jobs/queue'),state=>state.recentJobs.length===2,'both finished jobs must reach history');assert.equal(snapshot.batches.length,1);assert.equal(snapshot.batches[0].batchId,body.clientBatchId);assert.equal(snapshot.recentJobs.length,2);
   assert.deepEqual((await readdir(path.join(f.root,'outputs'))).sort(),['队列素材','队列素材 (2)']);
 });
 
