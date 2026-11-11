@@ -2,9 +2,11 @@
 
 > 在本机按时间范围提取视频片段——**不下载整片，只取你要的那几十秒**，视频不重新编码。
 
-[![test](https://github.com/Lysander5249/shark-clip/actions/workflows/test.yml/badge.svg)](https://github.com/Lysander5249/shark-clip/actions/workflows/test.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-macOS%20arm64%20%7C%20Windows%20x64-lightgrey.svg)](#快速开始)
+![test](https://github.com/Lysander5249/shark-clip/actions/workflows/test.yml/badge.svg)
+
+![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)
+
+![Platform](https://img.shields.io/badge/platform-macOS%20arm64%20%7C%20Windows%20x64-lightgrey.svg)
 
 [English](README.en.md) · [试用说明](docs/trial.md) · [问题反馈](https://github.com/Lysander5249/shark-clip/issues)
 
@@ -12,11 +14,8 @@
 
 ## 一句话
 
-一支 40 GB 的 4K 电影，你只要 `01:12:30 – 01:12:45` 这 15 秒。
+一支 40 GB 的 4K 电影，你只要 `01:12:30 – 01:12:45` 这 15 秒。  
 传统做法是把 40 GB 拖下来再切；这个工具只读这一段对应的字节，**通常几十 MB**，而且视频流是原样拷贝出去的，不重新压缩。
-
-<!-- 演示动图：录制后放到 docs/demo.gif，然后取消下面这行的注释 -->
-<!-- ![演示](docs/demo.gif) -->
 
 ---
 
@@ -54,12 +53,12 @@
 
 到 [Releases](https://github.com/Lysander5249/shark-clip/releases) 下载对应平台：
 
-| 平台 | 文件 | 说明 |
-|---|---|---|
-| macOS（Apple Silicon） | `Shark-<版本>-mac-arm64.zip` | 解压后拖动 `Shark-mac-arm64.app` 到「应用程序」 |
-| Windows x64 | `Shark-<版本>-windows-x64-Edge-*.zip` | 完整解压后运行 `Shark.exe` 或 `启动片段取材.cmd` |
+| 平台                   | 文件                                  | 说明                                  |
+| -------------------- | ----------------------------------- | ----------------------------------- |
+| macOS（Apple Silicon） | `Shark-<版本>-mac-arm64.zip`          | 解压后拖动 `Shark-mac-arm64.app` 到「应用程序」 |
+| Windows x64          | `Shark-<版本>-windows-x64-Edge-*.zip` | 完整解压后运行 `Shark.exe` 或 `启动片段取材.cmd`  |
 
-安装包内已含 Node.js、FFmpeg 和 ffprobe，**不需要另外安装任何东西**。
+安装包内已含 Node.js、FFmpeg 和 ffprobe，**不需要另外安装任何东西**。  
 每个 Release 都附带 `.sha256` 校验文件，下载后可自行核对。
 
 > ⚠️ 当前版本**未做 Apple 公证 / Windows 代码签名**，所以首次打开会被系统拦一下。看下面两节，一次点击的事。
@@ -88,7 +87,7 @@ xattr -dr com.apple.quarantine /Applications/Shark.app
 npm start
 ```
 
-终端会打印一个本机地址（形如 `http://127.0.0.1:51234`），用浏览器打开即可。
+终端会打印一个本机地址（形如 `http://127.0.0.1:51234`），用浏览器打开即可。  
 源码方式完全没有 Gatekeeper 问题。
 
 ---
@@ -97,12 +96,12 @@ npm start
 
 仓库里的回归测试会跑一个合成源的远程取材，日志会打印真实字节数：
 
-| 指标 | 数值 |
-|---|---|
-| 源文件总大小 | 63.8 MB |
-| 取的时间窗口 | `104s – 111s`（7 秒） |
-| 向源站请求的字节 | 4.80 MB |
-| 实际接收的字节 | **4.27 MB** |
+| 指标       | 数值                 |
+| -------- | ------------------ |
+| 源文件总大小   | 63.8 MB            |
+| 取的时间窗口   | `104s – 111s`（7 秒） |
+| 向源站请求的字节 | 4.80 MB            |
+| 实际接收的字节  | **4.27 MB**        |
 
 > 说明：这是**合成测试源**的实验室数据，不是迅雷 / 百度网盘的真实测量，用来验证「区间读取」这条链路确实只读了该读的字节。你自己的云盘实测数字以界面显示为准。
 
@@ -172,15 +171,15 @@ npm run test:desktop                                # 桌面打包回归
 
 **目录结构**
 
-| 目录 | 内容 |
-|---|---|
-| `server.mjs` | 本机 HTTP 服务与全部 API（只监听 `127.0.0.1`） |
-| `src/` | 引擎、远程读取、MKV 索引、续传、WebDAV、云盘适配 |
-| `public/` | 前端（原生 ES 模块，无构建步骤） |
-| `browser-helper/` | 浏览器扩展（抓链用） |
-| `desktop/` | macOS / Windows 桌面外壳 |
-| `scripts/` | 可复现构建、打包、烟测 |
-| `test/` | 回归测试 |
+| 目录                | 内容                                 |
+| ----------------- | ---------------------------------- |
+| `server.mjs`      | 本机 HTTP 服务与全部 API（只监听 `127.0.0.1`） |
+| `src/`            | 引擎、远程读取、MKV 索引、续传、WebDAV、云盘适配      |
+| `public/`         | 前端（原生 ES 模块，无构建步骤）                 |
+| `browser-helper/` | 浏览器扩展（抓链用）                         |
+| `desktop/`        | macOS / Windows 桌面外壳               |
+| `scripts/`        | 可复现构建、打包、烟测                        |
+| `test/`           | 回归测试                               |
 
 **构建**
 
